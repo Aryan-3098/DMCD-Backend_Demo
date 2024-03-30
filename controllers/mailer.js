@@ -1,10 +1,9 @@
 import nodemailer from 'nodemailer'
 import Mailgen from 'mailgen'
-import dotenv from 'dotenv'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url';
+import { EMAIL, PASSWORD } from '../config.js';
 
-dotenv.config()
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const logoPath = join(__dirname, 'C:\Users\Win10\Documents\DMCD\dmcd-backend\assets\images\DMCD-logos_transparent.png');
@@ -13,8 +12,8 @@ const nodeConfig = {
     port: 465,
     secure: true,
     auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD,
+        user: EMAIL,
+        pass: PASSWORD,
     },
 };
 
@@ -46,7 +45,7 @@ export const registerMail = async (req, res) => {
     let mailOptions = {
         from: {
             name: "DMCD",
-            address: process.env.EMAIL
+            address: EMAIL
         },
         to: email,
         subject: subject || "Verification Email",

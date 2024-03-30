@@ -1,12 +1,11 @@
 import axios from "axios";
-import dotenv from 'dotenv';
-dotenv.config();
+import { IMGUR_ACCESS_TOKEN } from "../config.js";
 
 const imgurDelete = async (deletehash) => {
     try {
         const response = await axios.delete(`https://api.imgur.com/3/image/${deletehash}`, {
             headers: {
-                'Authorization': `Bearer ${process.env.imgur_ACCESS_TOKEN}`
+                'Authorization': `Bearer ${IMGUR_ACCESS_TOKEN}`
             }
         });
     } catch (error) {

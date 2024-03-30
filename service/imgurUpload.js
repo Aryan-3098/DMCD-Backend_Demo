@@ -1,13 +1,12 @@
 import axios from "axios";
-import dotenv from 'dotenv';
-dotenv.config();
 import chalk from "chalk";
+import { IMGUR_ACCESS_TOKEN } from "../config.js";
 
 const imgurUpload = async (file) => {
     try {
         const response = await axios.post('https://api.imgur.com/3/image', file.buffer, {
             headers: {
-                'Authorization': `Bearer ${process.env.imgur_ACCESS_TOKEN}`,
+                'Authorization': `Bearer ${IMGUR_ACCESS_TOKEN}`,
                 'Content-Type': file.mimetype //
             }
         });

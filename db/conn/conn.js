@@ -1,9 +1,7 @@
 import mongoose from "mongoose"
-import dotenv from 'dotenv';
-dotenv.config();
-
+import { MONGO_ATLAS_PASSWORD } from "../../config.js";
 const mongoConn = () => {
-    mongoose.connect(`mongodb+srv://aryanap3098:${process.env.mongo_Atlas_Password}@dmcd.0avpmjo.mongodb.net/?retryWrites=true&w=majority&appName=DMCD`)
+    mongoose.connect(`mongodb+srv://aryanap3098:${MONGO_ATLAS_PASSWORD}@dmcd.0avpmjo.mongodb.net/?retryWrites=true&w=majority&appName=DMCD`)
         .then(() => console.log('Connected to MongoDB'))
         .catch(error => console.error('MongoDB connection error:', error))
 }

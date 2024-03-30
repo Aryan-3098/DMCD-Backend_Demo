@@ -6,7 +6,6 @@ import otpGenerator from "otp-generator"
 import chalk from "chalk";
 import passwordReset from "../methods/passwordReset.js";
 import jwt from 'jsonwebtoken';
-import ENV from '../'
 import axios from "axios";
 import { homeDataGetDB, homeDataPostDB } from "../methods/homeData.js";
 import { blogFetchAllDB, blogFetchLatestDB, blogPostDB, deleteBlog } from "../methods/blogs.js";
@@ -14,6 +13,7 @@ import { text } from "express";
 import { Blog, Driver } from "../db/models/schema.js";
 import { getAgeGenderCountData, getCityCountData, getReligionChartData} from "../methods/chartsData.js";
 import { postDriver } from "../methods/postDriver.js";
+import { IMGUR_CLIENTID, IMGUR_CLIENTSECRET, IMGUR_REFRESH_TOKEN, JWT_SECRET } from "../config.js";
 
 
 export async function signUp(req, res) {
@@ -127,7 +127,7 @@ export function tokenCheck(req, res) {
             return res.status(401).json({ error: "No token provided" });
         }
 
-        jwt.verify(token, ENV.JWT_SECRET, (err, decoded) => {
+        jwt.verify(token,JWT_SECRET, (err, decoded) => {
             if (err) {
                 return res.status(401).json({ error: "Invalid token" });
             } else {
@@ -258,7 +258,7 @@ export async function getAgeGenderData(req, res) {
 const redirectUri = "http://localhost:8000/api/imgurcallback"
 export async function ImgurLogin(req, res) {
     console.log(redirectUri);
-    const authorizationUrl = `https://api.imgur.com/oauth2/authorize?client_id=${ENV.imgur_CLIENTID}&response_type=token`
+    const authorizationUrl = `https://api.imgur.com/oauth2/authorize?client_id=${IMGUR_CLIENTID}&response_type=token`
     console.log(res.data);
     res.redirect(authorizationUrl);
 }
@@ -268,9 +268,9 @@ export async function ImgurCallback(req, res) {
     // Exchange authorization code for access token
     try {
         const response = await axios.post('https://api.imgur.com/oauth2/token', {
-            refresh_token: ENV.imgur_REFRESH_TOKEN,
-            client_id: ENV.imgur_CLIENTID,
-            client_secret: ENV.imgur_CLIENTSECRET,
+            refresh_token: IMGUR_REFRESH_TOKEN,
+            client_id: IMGUR_CLIENTID,
+            client_secret: IMGUR_CLIENTSECRET,
             grant_type: 'refresh_token'
         });
 

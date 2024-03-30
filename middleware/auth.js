@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
-import ENV from '../config.js';
+import dotenv from 'dotenv';
 import { User } from '../db/models/schema.js';
+dotenv.config();
 
 export default function Auth(req, res, next) {
     try {
@@ -9,7 +10,7 @@ export default function Auth(req, res, next) {
             return res.status(401).json({ error: "No token provided" });
         }
 
-        jwt.verify(token, ENV.JWT_SECRET, (err, decoded) => {
+        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
             if (err) {
                 return res.status(401).json({ error: "Invalid token" });
             } else {

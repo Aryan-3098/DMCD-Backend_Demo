@@ -6,7 +6,7 @@ import otpGenerator from "otp-generator"
 import chalk from "chalk";
 import passwordReset from "../methods/passwordReset.js";
 import jwt from 'jsonwebtoken';
-import ENV from '../config.js'
+import ENV from '../'
 import axios from "axios";
 import { homeDataGetDB, homeDataPostDB } from "../methods/homeData.js";
 import { blogFetchAllDB, blogFetchLatestDB, blogPostDB, deleteBlog } from "../methods/blogs.js";

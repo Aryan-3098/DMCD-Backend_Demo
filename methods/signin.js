@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { User } from '../db/models/schema.js';
-import ENV from '../config.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const userSignIn = async (email, password) => {
     try {
@@ -15,7 +16,7 @@ const userSignIn = async (email, password) => {
             throw new Error('Invalid email or password');
         }
 
-        const token = jwt.sign({ userId: user._id, userEmail: user.email }, ENV.JWT_SECRET, { expiresIn: '5D' });
+        const token = jwt.sign({ userId: user._id, userEmail: user.email }, process.env.JWT_SECRET, { expiresIn: '5D' });
         const responseUser = (({ password, ...userWithoutPassword }) => userWithoutPassword)(user.toObject());
         return { responseUser, token }
 

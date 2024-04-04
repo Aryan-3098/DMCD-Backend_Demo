@@ -34,7 +34,6 @@ const homeDataGetDB = async () => {
         if (homeData) {
             return homeData;
         } else {
-            console.log('No home data found.');
             return null;
         }
     } catch (error) {

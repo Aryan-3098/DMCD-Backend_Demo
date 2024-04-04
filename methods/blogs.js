@@ -11,6 +11,7 @@ const blogPostDB = async (file, highlights, postStory) => {
         highlights: highlights,
         postStory: postStory
     })
+    console.log();
     await newBlog.save()
     console.log(chalk.blue("Blog Posted"));
 }

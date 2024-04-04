@@ -4,14 +4,16 @@ import { User, Driver } from "../db/models/schema.js";
 const postDriver = async (name, phone) => {
   try {
     const user = await User.findOne({ phone });
-
+    if(user.usertype==="DRIVER"){
+      throw new Error("Already a driver");
+    }
     if (user) {
       user.usertype = "DRIVER";
       await user.save();
 
       const driverData = {
         _id:user._id,
-        name: user.name,
+        name: name,
         email: user.email,
         phone: user.phone,
         password: user.password,

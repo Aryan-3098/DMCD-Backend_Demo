@@ -14,7 +14,7 @@ router.route('/tokenVerify').get((controller.tokenCheck))
 
 
 router.route('/user/:userid').get((controller.getUser))
-router.route('/generateOTP').get(localVariables, (controller.generateOTP))
+router.route('/generateOTP').post(localVariables, (controller.generateOTP))
 router.route('/verifyOTP').post((controller.verifyOTP))
 
 router.route('/gethomedata').get((controller.homeDataGet));

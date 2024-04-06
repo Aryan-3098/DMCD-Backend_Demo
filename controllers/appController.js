@@ -14,6 +14,7 @@ import { Blog, Driver } from "../db/models/schema.js";
 import { getAgeGenderCountData, getCityCountData, getReligionChartData} from "../methods/chartsData.js";
 import { postDriver } from "../methods/postDriver.js";
 import { IMGUR_CLIENTID, IMGUR_CLIENTSECRET, IMGUR_REFRESH_TOKEN, JWT_SECRET } from "../config.js";
+// import { sendWhatsAppMessage } from "../service/whatsappMessenger.js";
 
 
 export async function signUp(req, res) {
@@ -50,7 +51,7 @@ export async function getUser(req, res) {
         const user = await getUserDB(userid)
         res.status(200).json(user);
     } catch (error) {
-        return res.status(404).send({ error: "No " })
+        return res.status(404).send({ error: "No User Found" })
     }
 }
 
@@ -68,8 +69,9 @@ export async function updateUser(req, res) {
     }
 }
 export async function generateOTP(req, res) {
+    const{phone}=req.body
     req.app.locals.OTP = await otpGenerator.generate(6, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false });
-
+    // sendWhatsAppMessage(`+91${phone}`,req.app.locals.OTP)
     res.status(200).send({ code: req.app.locals.OTP })
 }
 export async function verifyOTP(req, res) {
